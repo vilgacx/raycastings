@@ -2,26 +2,28 @@ import pygame
 from operator import itemgetter
 
 MAP = [
-    [1,1,1,1,1,1,1,1],
-    [1,0,1,0,0,0,0,1],
-    [1,0,1,0,1,1,1,1],
-    [1,0,0,0,0,1,0,1],
-    [1,0,1,0,0,1,0,1],
-    [1,0,1,0,0,1,0,1],
-    [1,0,1,0,0,0,0,1],
-    [1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1],
+    [1,0,0,1,0,0,0,0,0,1],
+    [1,0,0,1,0,1,1,1,1,1],
+    [1,0,0,0,0,1,1,1,1,1],
+    [1,0,0,0,0,1,0,0,0,1],
+    [1,0,0,1,0,0,0,0,0,1],
+    [1,0,0,1,0,1,1,0,1,1],
+    [1,0,0,1,0,0,1,0,0,1],
+    [1,0,0,1,0,0,1,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1],
 ]
 
-L = 40
-STEPS = 4
+L = 30
+STEPS = 1
 
 pygame.init()
 pygame.display.set_caption("title")
 screen = pygame.display.set_mode((1280, 720))
 running = True
 
-player_x = 60
-player_y = 60
+player_x = 45
+player_y = 45
 Rects = []
 
 def drawMap():
@@ -39,11 +41,11 @@ def drawMap():
     del y
 
 while running:
-    collides = []
-    
+    collides = [] 
     screen.fill("black")
     drawMap()
-    player = pygame.draw.circle(screen, "green", (player_x,player_y),6)
+    player = pygame.draw.circle(screen, "green", (player_x,player_y),5)
+    pygame.draw.line(screen, "yellow", (player_x, player_y), (player_x, 200), 1)
     
     collide_index = player.collidelistall(Rects)
     collide_ls = (itemgetter(*collide_index)(Rects)) if len(collide_index) > 0 else []  
@@ -56,9 +58,9 @@ while running:
     def check_stop(player_cord, cord, var):
         return (not any(player_cord == comp[cord]+var for comp in collides))
     
-    stop_up = check_stop(player_y,1,40+4)
+    stop_up = check_stop(player_y,1,L+4)
     stop_down = check_stop(player_y,1,0-4)
-    stop_left = check_stop(player_x,0,40+4)
+    stop_left = check_stop(player_x,0,L+4)
     stop_right = check_stop(player_x,0,0-4)
 
     for event in pygame.event.get():
