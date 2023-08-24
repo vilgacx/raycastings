@@ -1,3 +1,4 @@
+import math
 import pygame
 from operator import itemgetter
 
@@ -23,7 +24,7 @@ screen = pygame.display.set_mode((1280, 720))
 running = True
 
 player_x = 45
-player_y = 45
+player_y = 150
 Rects = []
 
 def drawMap():
@@ -42,11 +43,14 @@ def drawMap():
 
 while running:
     collides = [] 
+    
     screen.fill("black")
     drawMap()
-    player = pygame.draw.circle(screen, "green", (player_x,player_y),5)
-    pygame.draw.line(screen, "yellow", (player_x, player_y), (player_x, 200), 1)
-    
+    player = pygame.draw.circle(screen, "green", (player_x,player_y),8)
+    for angle in range(225,316):
+        pygame.draw.aaline(screen, "yellow", (player_x, player_y), (player_x - math.sin(math.radians(angle)) * 200,
+                                                                player_y + math.cos(math.radians(angle)) * 200), 1)
+
     collide_index = player.collidelistall(Rects)
     collide_ls = (itemgetter(*collide_index)(Rects)) if len(collide_index) > 0 else []  
 
