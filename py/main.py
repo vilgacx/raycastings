@@ -25,7 +25,6 @@ running = True
 player_x = 80
 player_y = 200
 player_angle = 225
-up = True
 
 def map():
     y = 0 
@@ -84,11 +83,9 @@ while running:
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
-        up = True
         player_x += -math.sin(math.radians(angle)) * STEPS
         player_y += math.cos(math.radians(angle)) * STEPS
     if keys[pygame.K_DOWN]:
-        up = False
         player_x -= -math.sin(math.radians(angle)) * STEPS
         player_y -= math.cos(math.radians(angle)) * STEPS
     if keys[pygame.K_RIGHT]:
@@ -96,17 +93,6 @@ while running:
     if keys[pygame.K_LEFT]:
         player_angle -= 1
     
-    '''
-    for ckey in dummy:
-        if MAP[int(dummy[ckey]['y']/L)][int(dummy[ckey]['x']/L)] == 1:
-            if up:
-                player_x = prev_x + math.sin(math.radians(angle))
-                player_y = prev_y - math.cos(math.radians(angle))
-            else:
-                player_x = prev_x - math.sin(math.radians(angle))
-                player_y = prev_y + math.cos(math.radians(angle))
-    '''
-
     if MAP[int(dummy[1]['y']/L)][int(dummy[1]['x']/L)] == 1:
         player_x = prev_x + 0.1
         player_y = prev_y
