@@ -1,85 +1,88 @@
 import math
 import pygame
-from operator import itemgetter
 
 MAP = [
     [1,1,1,1,1,1,1,1,1,1],
     [1,0,0,1,0,0,0,0,0,1],
     [1,0,0,1,0,1,1,1,1,1],
-    [1,0,0,0,0,1,1,1,1,1],
-    [1,0,0,0,0,1,0,0,0,1],
-    [1,0,0,1,0,0,0,0,0,1],
+    [1,0,0,0,0,1,0,0,1,1],
+    [1,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,1],
     [1,0,0,1,0,1,1,0,1,1],
     [1,0,0,1,0,0,1,0,0,1],
-    [1,0,0,1,0,0,1,0,0,1],
+    [1,0,1,1,0,0,1,0,0,1],
     [1,1,1,1,1,1,1,1,1,1],
 ]
 
-L = 30
+L = 50
 STEPS = 1
 
 pygame.init()
-pygame.display.set_caption("title")
-screen = pygame.display.set_mode((1280, 720))
+pygame.display.set_caption("raycastings")
+screen = pygame.display.set_mode((1000,500))
 running = True
 
-player_x = 45
-player_y = 150
-Rects = []
+player_x = 80
+player_y = 200
+player_angle = 225
 
-def drawMap():
-    Rects.clear()
+def map():
     y = 0 
     for i in MAP:
         x = 0
         for j in i:
-            if j == 1:
-                rect = pygame.draw.rect(screen, "white", pygame.Rect(x,y,L,L),1)
-                Rects.append(rect)
+            pygame.draw.rect(screen, "lightgray" if j == 1 else (100, 100, 100), pygame.Rect(x,y,L,L))
+            pygame.draw.rect(screen,"black",pygame.Rect(x,y,L,L),1)
             x += L
         del x
         y += L
     del y
 
+def rays():
+    for angle in range(90):
+        for depth in range(500):
+            target_x = player_x - math.sin(math.radians(player_angle+angle)) * depth
+            target_y = player_y + math.cos(math.radians(player_angle+angle)) * depth
+
+            col = int(target_x / L)
+            row = int(target_y / L)
+
+            if MAP[row][col] == 1:
+                pygame.draw.rect(screen, "blue", (col * L,row * L,L-1,L-1))
+                pygame.draw.aaline(screen, "orange", (player_x, player_y), (target_x, target_y))
+                break
+
+
+
 while running:
-    collides = [] 
-    
-    screen.fill("black")
-    drawMap()
-    player = pygame.draw.circle(screen, "green", (player_x,player_y),8)
-    for angle in range(225,316):
-        pygame.draw.aaline(screen, "yellow", (player_x, player_y), (player_x - math.sin(math.radians(angle)) * 200,
-                                                                player_y + math.cos(math.radians(angle)) * 200), 1)
+    screen.fill("white")
 
-    collide_index = player.collidelistall(Rects)
-    collide_ls = (itemgetter(*collide_index)(Rects)) if len(collide_index) > 0 else []  
+    map()
+    rays()
 
-    if len(collide_index) > 1:
-         collides = list(collide_ls)
-    elif len(collide_index) == 1:
-        collides = [collide_ls]
-    
-    def check_stop(player_cord, cord, var):
-        return (not any(player_cord == comp[cord]+var for comp in collides))
-    
-    stop_up = check_stop(player_y,1,L+4)
-    stop_down = check_stop(player_y,1,0-4)
-    stop_left = check_stop(player_x,0,L+4)
-    stop_right = check_stop(player_x,0,0-4)
+    # for angle in range(player_angle,player_angle + 90 + 1):
+    #     target_x = player_x - math.sin((math.radians(angle))) * 500
+    #     target_y = player_y + math.cos((math.radians(angle))) * 500
+    #     pygame.draw.aaline(screen, "yellow", (player_x, player_y),(target_x, target_y),1)
+
+
+    player = pygame.draw.circle(screen, "green", (player_x,player_y),10)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False 
-        keys = pygame.key.get_pressed()
+            running = False
 
-        if keys[pygame.K_DOWN] and stop_down:
-            player_y += STEPS
-        if keys[pygame.K_UP] and stop_up:
-            player_y -= STEPS
-        elif keys[pygame.K_RIGHT] and stop_right:
-            player_x += STEPS
-        elif keys[pygame.K_LEFT] and stop_left:
-            player_x -= STEPS
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_UP]:
+        player_x += -math.sin(math.radians(player_angle + 45)) * STEPS
+        player_y += math.cos(math.radians(player_angle + 45)) * STEPS
+    if keys[pygame.K_DOWN]:
+        player_x -= -math.sin(math.radians(player_angle + 45)) * STEPS
+        player_y -= math.cos(math.radians(player_angle + 45)) * STEPS
+    if keys[pygame.K_RIGHT]:
+        player_angle += STEPS
+    if keys[pygame.K_LEFT]:
+        player_angle -= STEPS
 
     pygame.display.flip()
 
