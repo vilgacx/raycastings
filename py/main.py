@@ -59,13 +59,7 @@ while running:
 
     map()
     rays()
-
-    # for angle in range(player_angle,player_angle + 90 + 1):
-    #     target_x = player_x - math.sin((math.radians(angle))) * 500
-    #     target_y = player_y + math.cos((math.radians(angle))) * 500
-    #     pygame.draw.aaline(screen, "yellow", (player_x, player_y),(target_x, target_y),1)
-
-
+ 
     player = pygame.draw.circle(screen, "green", (player_x,player_y),10)
 
     for event in pygame.event.get():
