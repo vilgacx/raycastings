@@ -4,8 +4,8 @@ import pygame
 MAP = [
     [1,1,1,1,1,1,1,1,1,1],
     [1,0,0,1,0,0,0,0,0,1],
-    [1,0,0,1,0,1,1,1,1,1],
-    [1,0,0,0,0,1,0,0,1,1],
+    [1,0,0,0,0,1,1,1,1,1],
+    [1,0,0,0,0,0,0,0,1,1],
     [1,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,1],
     [1,0,0,1,0,1,1,0,1,1],
@@ -25,13 +25,14 @@ running = True
 player_x = 80
 player_y = 200
 player_angle = 225
+up = True
 
 def map():
     y = 0 
     for i in MAP:
         x = 0
         for j in i:
-            pygame.draw.rect(screen, "lightgray" if j == 1 else (100, 100, 100), pygame.Rect(x,y,L,L))
+            pygame.draw.rect(screen, "lightgray" if j == 1 else "#646464", pygame.Rect(x,y,L,L))
             pygame.draw.rect(screen,"black",pygame.Rect(x,y,L,L),1)
             x += L
         del x
@@ -57,26 +58,69 @@ def rays():
 while running:
     screen.fill("white")
 
+    angle = player_angle + 45
+
+    dummy = {
+        1: {'x': player_x - 10.1,'y': player_y},
+        2: {'x': player_x + 10.1,'y': player_y},
+        3: {'x': player_x,'y': player_y - 10.1},
+        4: {'x': player_x,'y': player_y + 10.1},
+    }
+
+    for key in dummy:
+        pygame.draw.circle(screen,"#646464",(dummy[key]['x'],dummy[key]['y']),10) 
+    
     map()
-    rays()
- 
-    player = pygame.draw.circle(screen, "green", (player_x,player_y),10)
+    rays() 
+
+    pygame.draw.circle(screen, "green", (player_x,player_y),10)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            running = False 
+
+    prev_x = player_x
+    prev_y = player_y
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
-        player_x += -math.sin(math.radians(player_angle + 45)) * STEPS
-        player_y += math.cos(math.radians(player_angle + 45)) * STEPS
+        up = True
+        player_x += -math.sin(math.radians(angle)) * STEPS
+        player_y += math.cos(math.radians(angle)) * STEPS
     if keys[pygame.K_DOWN]:
-        player_x -= -math.sin(math.radians(player_angle + 45)) * STEPS
-        player_y -= math.cos(math.radians(player_angle + 45)) * STEPS
+        up = False
+        player_x -= -math.sin(math.radians(angle)) * STEPS
+        player_y -= math.cos(math.radians(angle)) * STEPS
     if keys[pygame.K_RIGHT]:
-        player_angle += STEPS
+        player_angle += 1
     if keys[pygame.K_LEFT]:
-        player_angle -= STEPS
+        player_angle -= 1
+    
+    '''
+    for ckey in dummy:
+        if MAP[int(dummy[ckey]['y']/L)][int(dummy[ckey]['x']/L)] == 1:
+            if up:
+                player_x = prev_x + math.sin(math.radians(angle))
+                player_y = prev_y - math.cos(math.radians(angle))
+            else:
+                player_x = prev_x - math.sin(math.radians(angle))
+                player_y = prev_y + math.cos(math.radians(angle))
+    '''
+
+    if MAP[int(dummy[1]['y']/L)][int(dummy[1]['x']/L)] == 1:
+        player_x = prev_x + 0.1
+        player_y = prev_y
+    if MAP[int(dummy[2]['y']/L)][int(dummy[2]['x']/L)] == 1:
+        player_x = prev_x - 0.1
+        player_y = prev_y
+    if MAP[int(dummy[3]['y']/L)][int(dummy[3]['x']/L)] == 1:
+        player_x = prev_x
+        player_y = prev_y + 0.1
+    if MAP[int(dummy[4]['y']/L)][int(dummy[4]['x']/L)] == 1:
+        player_x = prev_x
+        player_y = prev_y - 0.1
+
+
 
     pygame.display.flip()
 
