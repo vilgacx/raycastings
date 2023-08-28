@@ -8,13 +8,13 @@ WIDTH = 1000
 MAP = [
     [1,1,1,1,1,1,1,1,1,1],
     [1,0,0,1,0,0,0,0,0,1],
-    [1,0,0,1,0,1,1,1,1,1],
-    [1,0,0,0,0,0,0,0,1,1],
+    [1,0,0,0,0,0,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,1,0,1,1,0,1,1],
+    [1,0,0,0,0,1,0,0,1,1],
+    [1,0,0,0,0,1,0,0,0,1],
+    [1,0,0,1,0,1,1,0,0,1],
     [1,0,0,1,0,0,1,0,0,1],
-    [1,0,1,1,0,0,1,0,0,1],
+    [1,0,0,1,0,0,1,0,0,1],
     [1,1,1,1,1,1,1,1,1,1],
 ]
 
@@ -28,7 +28,7 @@ display.set_caption("raycastings")
 screen = display.set_mode((WIDTH,HEIGHT))
 running = True
 
-player_x = 80
+player_x = 65
 player_y = 200
 player_angle = 225
 
@@ -56,8 +56,9 @@ def rays():
             if MAP[row][col] == 1:
                 rect(screen, "blue", (col * L,row * L,L-1,L-1))
                 aaline(screen, "orange", (player_x, player_y), (target_x, target_y))
-                depth *= cos(radians(45-angle))
+
                 color = int(255 / (1 + depth * depth * 0.0001))
+                depth *= cos(radians(45-angle))
                 wall_height = 21000 / (depth + 0.0001)
 
                 if wall_height > HEIGHT: wall_height = HEIGHT
@@ -95,7 +96,7 @@ while running:
 
     for ang in range(0,360,45):
         a = radians(ang)
-        if MAP[int((player_y-11*sin(a))/L)][int((player_x-11*cos(a))/L)] == 1:
+        if MAP[int((player_y-10.5*sin(a))/L)][int((player_x-10.5*cos(a))/L)] == 1:
             player_x = prev_x
             player_y = prev_y
 
