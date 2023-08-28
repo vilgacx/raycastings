@@ -45,7 +45,7 @@ def map():
     del y
 
 def rays():
-    for angle in range(ANGLES):
+    for angle in range(0,ANGLES+1):
         for depth in range(int(WIDTH/2)):
             target_x = player_x - sin(radians(player_angle+angle)) * depth
             target_y = player_y + cos(radians(player_angle+angle)) * depth
@@ -56,15 +56,12 @@ def rays():
             if MAP[row][col] == 1:
                 rect(screen, "blue", (col * L,row * L,L-1,L-1))
                 aaline(screen, "orange", (player_x, player_y), (target_x, target_y))
-                depth *= cos(45-angle)
+                depth *= cos(radians(45-angle))
                 color = int(255 / (1 + depth * depth * 0.0001))
                 wall_height = 21000 / (depth + 0.0001)
 
-                if wall_height > HEIGHT:
-                    wall_height = HEIGHT
-                
-                rect(screen, (color, color, color), ((HEIGHT+angle*SCALE, (HEIGHT/2)-wall_height/2, SCALE, wall_height)))
-                
+                if wall_height > HEIGHT: wall_height = HEIGHT
+                rect(screen, (color, color, color), ((WIDTH/2)+(angle*SCALE), (HEIGHT/2)-wall_height/2, SCALE, wall_height))
                 break
 
 while running:
