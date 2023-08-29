@@ -70,10 +70,11 @@ while running:
         if Event.type == QUIT:
             running = False
 
-    screen.fill("black")
+    screen.fill("black") 
 
     map()
-    rays() 
+    rays()
+    rect(screen, "white",(WIDTH/2,0,WIDTH/2,HEIGHT),1)
 
     circle(screen, "green", (player_x,player_y),10)
     
