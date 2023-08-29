@@ -45,7 +45,7 @@ def map():
     del y
 
 def rays():
-    for angle in range(0,ANGLES+1):
+    for angle in range(ANGLES+1):
         for depth in range(int(WIDTH/2)):
             target_x = player_x - sin(radians(player_angle+angle)) * depth
             target_y = player_y + cos(radians(player_angle+angle)) * depth
@@ -58,7 +58,7 @@ def rays():
                 aaline(screen, "orange", (player_x, player_y), (target_x, target_y))
 
                 color = int(255 / (1 + depth * depth * 0.0001))
-                depth *= cos(radians(45-angle))
+                depth *= cos(radians((ANGLES/2)-angle))
                 wall_height = 21000 / (depth + 0.0001)
 
                 if wall_height > HEIGHT: wall_height = HEIGHT
@@ -81,7 +81,7 @@ while running:
     prev_x = player_x
     prev_y = player_y
     
-    angle = player_angle + 45
+    angle = player_angle + (ANGLES/2)
 
     keys = key.get_pressed()
     if keys[K_UP]:
