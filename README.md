@@ -6,8 +6,6 @@
 
 ![ss](./imgs/ss.png)
 
-
-
 *addtional feature: I implemented a custom collison system with only using math & program logic.*
 ### How my custom collison system works?
 here's the specific code:
@@ -60,3 +58,12 @@ that's how points can be defined and then check if they overlaped.
 
 
 ***(I might make a video on it, explaining it even more properly)***
+
+*Great thanks to [monkey_see_monkey_do](https://www.youtube.com/@monkey_see_monkey_do) I understood his video on raycasting only a bit, but his final [code](https://github.com/maksimKorzh/raycasting-tutorials/blob/main/tutorial/part_3.py) that I referred was pretty good and also made me understood a lot.*
+
+*Some videos that did good job explaining raycasting are as follows:*
+[Building a Raycasting Engine in Python -  Gpopcorn ](https://youtu.be/O_J8jRq6lBw?si=DGutAEoBmh0f0hnY)
+[Make Your Own Raycaster Part 1 - 3DSage](https://youtu.be/gYRrGTC7GtA?si=0bYb6x5M5bPB5vTz)
+[DDA Line Drawing Algorithm - Computer Graphics - Abdul Bari](https://youtu.be/W5P8GlaEOSI?si=IL-90GP7--I_phFt)
+
+*To be honest I didn't watched or read much of these stuff for making this project I learned about it through the proccess of making it. Which can get painfull sometimes but thinking from scratch is like inventing it.*
