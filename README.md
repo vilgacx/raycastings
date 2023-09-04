@@ -49,7 +49,7 @@ The diagram below illustrates all the points on a circle, starting from 0 degree
 
 that's how points can be defined and then check if they overlaped.
 
-**Pros:***
+**Pros:**
 - The lesser the step value the more delicate it gets as it will track more points. Even though currently step is set to 45 degrees it still does very well job at detecting collsion.
 - Pretty Errorless
 
