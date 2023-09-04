@@ -51,10 +51,10 @@ that's how points can be defined and then check if they overlaped.
 
 **Pros:**
 - The lesser the step value the more delicate it gets as it will track more points. Even though currently step is set to 45 degrees it still does very well job at detecting collsion.
-- Pretty Errorless
+- Pretty Errorless.
 
 **Cons:**
-- Can be CPU intensive as tracking more and more points.
+- Can be CPU intensive if tracking more and more points.
 <hr>
 
 **Great thanks to [monkey_see_monkey_do](https://www.youtube.com/@monkey_see_monkey_do) I understood his video on raycasting only a bit, but his final [code](https://github.com/maksimKorzh/raycasting-tutorials/blob/main/tutorial/part_3.py) that I referred was pretty good and also made me understood a lot.**<br>
