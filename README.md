@@ -9,7 +9,7 @@
 
 
 *addtional feature: I implemented a custom collison system with only using math & program logic.*
-#### How my custom collison system works?
+### How my custom collison system works?
 here's the specific code:
 
 ```python3
@@ -34,10 +34,10 @@ in actual code at line number:
 <br>
 [81-82](https://github.com/vilgacx/raycastings/blob/381caeae59115928d8328155067c9d58415f27ef/py/main.py#L81C2-L82C22) & [98-102](https://github.com/vilgacx/raycastings/blob/381caeae59115928d8328155067c9d58415f27ef/py/main.py#L98C4-L102C30)
 
-##### What Exactly Is It Doing?
+#### What Exactly Is It Doing?
 
 It is essentially tracking specific points along the circumference. When these points overlap with any coordinates on the "wall," the player's X and Y coordinates are reverted to their previous positions.
-##### Defining Points
+#### Defining Points
 
 To define the points, I implemented a for-loop that iterates from 0 to 360, covering every possible angle in a circle, with a specified "step." In this code and example, the "step" is set to 45 degrees. Therefore, the angles it will iterate through are 0, 45, 90, 135, 180, 225, 270, and 315 degrees.
 
