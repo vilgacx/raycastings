@@ -19,6 +19,7 @@ MAP = [
 ]
 
 L = 50
+RADIUS = 10
 STEPS = 1.5
 ANGLES = 90
 SCALE = (WIDTH/2)/ANGLES
@@ -76,7 +77,7 @@ while running:
     rays()
     rect(screen, "white",(WIDTH/2,0,WIDTH/2,HEIGHT),1)
 
-    circle(screen, "green", (player_x,player_y),10)
+    circle(screen, "green", (player_x,player_y),RADIUS)
     
     prev_x = player_x
     prev_y = player_y
@@ -97,7 +98,7 @@ while running:
 
     for ang in range(0,360,45):
         a = radians(ang)
-        if MAP[int((player_y-10.5*sin(a))/L)][int((player_x-10.5*cos(a))/L)] == 1:
+        if MAP[int((player_y-(RADIUS+.5)*sin(a))/L)][int((player_x-(RADIUS+.5)*cos(a))/L)] == 1:
             player_x = prev_x
             player_y = prev_y
 
