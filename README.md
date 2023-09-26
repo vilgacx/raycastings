@@ -39,11 +39,11 @@ It is essentially tracking specific points along the circumference. When these p
 
 To define the points, I implemented a for-loop that iterates from 0 to 360, covering every possible angle in a circle, with a specified "step". In this code and example, the "step" is set to 45 degrees. Therefore, the angles it will iterate through are 0, 45, 90, 135, 180, 225, 270, and 315 degrees.
 
-Assuming the player's (X, Y) represents the center point of the circle, you can calculate the X and Y coordinates of the points along the circumference as follows: <br>
+Assuming the player's (X, Y) represents the center point of the circle, you can calculate the coordinates of the points along the circumference as follows: <br>
 `XPoint = X - (radius + variance) * cos(angle-in-radians)` <br>
 `YPoint = Y - (radius + variance) * sin(angle-in-radians)`
 
-The diagram below illustrates all the points on a circle, starting from 0 degrees and incrementing by45 degrees.
+The diagram below illustrates all the points on a circle, starting from 0 degrees and incrementing by 45 degrees.
 
 ![diagram](./imgs/diagram.png)
 
